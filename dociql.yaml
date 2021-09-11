@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: dociql-app
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: dociql-app
+    template:
+        metadata:
+            labels:
+                app: dociql-app
+        spec:
+            imagePullSecrets:
+                - name: dockerregistry
+            containers:
+                - name: dociql-app
+                  image: labs47b/mercanis:{{TAG}}
+                  #image: cpg47b/nextgen:node_api_e1e6088a136852c52688d65c386bff9d449a63f0
+                  ports:
+                      - containerPort: 4400
+                  imagePullPolicy: Always
+            restartPolicy: Always
